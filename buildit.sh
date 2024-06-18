@@ -5,7 +5,7 @@ CC="gcc"
 GA="gcc"
 LD="ld"
 
-CFLAGS="-Wall -Wextra -Werror"
+CFLAGS="-Wall -Wextra -Werror -I."
 
 name="libertyft.a"
 
@@ -15,7 +15,7 @@ mkdir  $out
 for file in $(find src -name "*.c"); do
     out_name=$(basename $file .c).o
     echo "CC $file"
-    $CC -c $file -o $out/$out_name
+    $CC $CFLAGS -c $file -o $out/$out_name
 done
 
 for file in $(find src -name "*.s"); do

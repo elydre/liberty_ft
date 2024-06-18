@@ -1,40 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   notaglobal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pf4 <oui@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 20:29:55 by pf4               #+#    #+#             */
-/*   Updated: 2024/06/18 20:59:24 by pf4              ###   ########.fr       */
+/*   Created: 2024/06/18 20:31:46 by pf4               #+#    #+#             */
+/*   Updated: 2024/06/18 21:01:40 by pf4              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_liberty.h"
 
-#include <string.h>
-#include <stdio.h>
-
-void	jump_test(void)
+void	*nag(int index)
 {
-	printf("f() called\n");
-	ft_longjmp(**(t_jmp_buf **) nag(0), 42);
-	printf("should not be called\n");
+	static void	*mem[32] = {NULL};
+
+	if (index < 0 || index >= 32)
+		return (NULL);
+	return (mem + index);
 }
 
-int	main(void)
+int	nag_write(int index, void *ptr)
 {
-	t_jmp_buf	env;
-	int			a;
+	void	**mem;
 
-	*(t_jmp_buf **) nag(0) = &env;
-	a = ft_setjmp(env);
-	printf("setjmp returned %d\n", a);
-	if (a == 0)
-	{
-		jump_test();
-		printf("should not be called\n");
-	}
-	printf("end of main\n");
+	mem = nag(index);
+	if (!mem)
+		return (-1);
+	*mem = ptr;
 	return (0);
+}
+
+void	*nag_read(int index)
+{
+	void	**mem;
+
+	mem = nag(index);
+	if (mem)
+		return (*mem);
+	return (NULL);
 }

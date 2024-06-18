@@ -1,23 +1,30 @@
-#ifndef FT_SETJMP_H
-#define FT_SETJMP_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_liberty.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pf4 <oui@42.fr>                            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/18 20:23:43 by pf4               #+#    #+#             */
+/*   Updated: 2024/06/18 21:00:37 by pf4              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stddef.h>
+#ifndef FT_LIBERTY_H
+# define FT_LIBERTY_H
+
+# include <stddef.h>
 
 // idk, probably not the right size
-typedef long long ft_jmp_buf[16];
+typedef long long	t_jmp_buf[16];
 
 // defined in ft_setjmp.s
-int  ft_setjmp(ft_jmp_buf env);
-void ft_longjmp(ft_jmp_buf env, int val);
+int		ft_setjmp(t_jmp_buf env);
+void	ft_longjmp(t_jmp_buf env, int val);
 
-#ifdef __GNUC__
-// gcc has a built-in alloca
-void *ft_alloca(size_t size);
-#define ft_alloca(size) __builtin_alloca(size)
-#else
-// fuck you warning
-void *alloca(size_t size);
-#define ft_alloca(size) alloca(size)
-#endif
+// defined in notaglobal.c
+void	*nag(int index);
+void	nag_write(int index, void *ptr);
+void	*nag_read(int index);
 
 #endif
