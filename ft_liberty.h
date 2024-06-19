@@ -6,7 +6,7 @@
 /*   By: pf4 <oui@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:23:43 by pf4               #+#    #+#             */
-/*   Updated: 2024/06/18 21:21:32 by pf4              ###   ########.fr       */
+/*   Updated: 2024/06/19 14:26:29 by pf4              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,16 @@ extern void	*alloca(size_t size);
 
 #  define FT_ALLOCA alloca
 # endif
+
+// defined in ft_malloc.c
+void		*ft_malloc(size_t size, int level);
+void		ft_free(void *ptr);
+int			ft_free_level(int level);
+int			ft_free_all(void);
+
+// defined in ft_realloc.c
+void		*ft_realloc(void *ptr, size_t size);
+void		*ft_calloc(size_t nmemb, size_t size);
+char		*ft_stralloc(const char *str);
 
 #endif
