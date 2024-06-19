@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   rt_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pf4 <oui@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 14:22:21 by pf4               #+#    #+#             */
-/*   Updated: 2024/06/19 14:24:32 by pf4              ###   ########.fr       */
+/*   Updated: 2024/06/19 17:25:55 by pf4              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "rt_malloc.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*rt_realloc(void *ptr, size_t size)
 {
 	t_block	*block;
 	void	*new;
 
+	if (ptr == NULL)
+		return (rt_malloc(size, 0));
 	block = (t_block *)ptr - 1;
-	new = ft_malloc(size, block->level);
+	new = rt_malloc(size, block->level);
 	if (new == NULL)
 		return (NULL);
-	ft_free(ptr);
+	rt_free(ptr);
 	return (new);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*rt_calloc(size_t nmemb, size_t size, int level)
 {
 	void	*ptr;
 	size_t	i;
 
-	ptr = ft_malloc(nmemb * size, 0);
+	ptr = rt_malloc(nmemb * size, level);
 	if (ptr == NULL)
 		return (NULL);
 	i = 0;
@@ -39,7 +41,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (ptr);
 }
 
-char	*ft_stralloc(const char *str)
+char	*rt_strdup(const char *str, int level)
 {
 	char	*ptr;
 	size_t	len;
@@ -47,7 +49,7 @@ char	*ft_stralloc(const char *str)
 	len = 0;
 	while (str[len] != '\0')
 		len++;
-	ptr = ft_malloc(len + 1, 0);
+	ptr = rt_malloc(len + 1, level);
 	if (ptr == NULL)
 		return (NULL);
 	len = 0;

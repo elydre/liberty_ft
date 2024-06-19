@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_malloc.c                                        :+:      :+:    :+:   */
+/*   rt_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pf4 <oui@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 14:05:09 by pf4               #+#    #+#             */
-/*   Updated: 2024/06/19 14:27:46 by pf4              ###   ########.fr       */
+/*   Updated: 2024/06/19 17:25:51 by pf4              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_malloc.h"
+#include "rt_malloc.h"
 
 #include <stdlib.h>
 
@@ -21,7 +21,7 @@ static t_block	**get_block(void)
 	return (&first);
 }
 
-void	*ft_malloc(size_t size, int level)
+void	*rt_malloc(size_t size, int level)
 {
 	t_block	*block;
 
@@ -38,7 +38,7 @@ void	*ft_malloc(size_t size, int level)
 	return ((void *)(block + 1));
 }
 
-void	ft_free(void *ptr)
+void	rt_free(void *ptr)
 {
 	t_block	*block;
 
@@ -52,7 +52,7 @@ void	ft_free(void *ptr)
 	free(block);
 }
 
-int	ft_free_level(int level)
+int	rt_free_level(int level)
 {
 	t_block	*block;
 	t_block	*next;
@@ -79,7 +79,7 @@ int	ft_free_level(int level)
 	return (count);
 }
 
-int	ft_free_all(void)
+int	rt_free_all(void)
 {
 	t_block	*block;
 	t_block	*next;

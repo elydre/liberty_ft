@@ -1,12 +1,12 @@
 # original code: musl-libc
 
-.global ft_longjmp
-.global ft_setjmp
+.global rt_longjmp
+.global rt_setjmp
 
-.type ft_longjmp,@function
-.type ft_setjmp,@function
+.type rt_longjmp,@function
+.type rt_setjmp,@function
 
-ft_longjmp:
+rt_longjmp:
     xor %eax,       %eax
     cmp $1,         %esi    # CF = val ? 0 : 1
     adc %esi,       %eax    # eax = val + !val
@@ -19,7 +19,7 @@ ft_longjmp:
     mov 48(%rdi),   %rsp
     jmp *56(%rdi)           # goto saved address without altering rsp
 
-ft_setjmp:
+rt_setjmp:
     mov %rbx,       (%rdi)    # rdi is jmp_buf, move registers onto it
     mov %rbp,       8(%rdi)
     mov %r12,       16(%rdi)
