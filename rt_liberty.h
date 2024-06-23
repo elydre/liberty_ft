@@ -6,7 +6,7 @@
 /*   By: pf4 <oui@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 20:23:43 by pf4               #+#    #+#             */
-/*   Updated: 2024/06/19 17:26:43 by pf4              ###   ########.fr       */
+/*   Updated: 2024/06/23 13:49:21 by pf4              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void		*nag_read(int index);
 void		*rt_alloca(size_t size);
 
 # ifdef _GNUC_
-#  define rt_ALLOCA __builtin_alloca
+#  define RT_ALLOCA __builtin_alloca
 # else
 
 // unused with modern compilers
 extern void	*alloca(size_t size);
 
-#  define rt_ALLOCA alloca
+#  define RT_ALLOCA alloca
 # endif
 
 // defined in rt_malloc.c
@@ -51,5 +51,8 @@ int			rt_free_all(void);
 void		*rt_realloc(void *ptr, size_t size);
 void		*rt_calloc(size_t nmemb, size_t size, int level);
 char		*rt_stralloc(const char *str, int level);
+
+// defined in rt_catv.c
+char		*rt_catv(char *str, ...);
 
 #endif
